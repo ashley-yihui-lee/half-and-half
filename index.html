@@ -276,7 +276,7 @@
   <div class="container">
     <h2>half & half</h2>
     <div class="progress">
-      <span id="page-counter">1 / 7</span>
+      <span id="page-counter">1 / 8</span>
     </div>
 
     <!-- Page 1: Welcome -->
@@ -301,7 +301,7 @@
       <h1>how this works</h1>
       <p>i want you to send me a photo and (roughly) one sentence.</p>
       
-<p><strong>for the words //</strong> write whatever you want. be creative. be random. say something totally mundane like “i bought a box of chocolate this morning.” or go full lit major and quote woolf. it’s <u><em>not</em></u> a caption for your photo — though it can be. (i might split them up anyway.)</p>
+<p><strong>for the words //</strong> write whatever you want. be creative. be random. say something totally mundane like “i bought a box of chocolate this morning.” or go full lit major and quote woolf. it’s <u>not</u> a caption for your photo — though it can be. (BUT i might split them up anyway.)</p>
       
       <p><strong>for the photo //</strong> give me one according to the prompt. you'll get stuff like "a sunset you saw" or "a food pic you shared with your mom," within the timeframe of 2020–2025. after you upload your photo, you'll draft a prompt for someone else. again, be creative, be curious. what part of someone's life are you wondering about? what encapsulates life in this 20s?</p>
       
@@ -357,8 +357,24 @@
       </div>
     </div>
 
-    <!-- Page 5: Your Prompt for the Next Person -->
+    <!-- Page 5: Photo Details -->
     <div class="page" id="page-5">
+      <h1>about your photo</h1>
+      <label for="photo-description">tell me more about this photo (optional)</label>
+      <textarea id="photo-description" placeholder="what's the story behind this photo? where was it taken? who were you with? what were you feeling?"></textarea>
+      
+      <label for="photo-date">when was this taken? (required)</label>
+      <input type="text" id="photo-date" placeholder="2023/03 or just 2022 or even 'spring 2021'" required />
+      <em>note: can be as vague or specific as you want — just need a rough timeframe within 2020-2025</em>
+      
+      <div class="navigation">
+        <button onclick="prevPage()">back</button>
+        <button onclick="nextPage()">next</button>
+      </div>
+    </div>
+
+    <!-- Page 6: Your Prompt for the Next Person -->
+    <div class="page" id="page-6">
       <h1>your photo prompt for the next person</h1>
       <p>write a photo prompt for someone else!</p>
       <input type="text" id="prompt-for-next" placeholder="your prompt for the next person" required />
@@ -370,8 +386,8 @@
       </div>
     </div>
 
-    <!-- Page 6: Your Name -->
-    <div class="page" id="page-6">
+    <!-- Page 7: Your Name -->
+    <div class="page" id="page-7">
       <h1>your name</h1>
       <p>feel free to stay anonymous</p>
       <input type="text" id="name" placeholder="but put your name if you know i love you" />
@@ -381,8 +397,8 @@
       </div>
     </div>
 
-    <!-- Page 7: Your Contact Info -->
-    <div class="page" id="page-7">
+    <!-- Page 8: Your Contact Info -->
+    <div class="page" id="page-8">
       <h1>your contact info</h1>
       <p>leave one if wanna be reached for the final zine!</p>
       <input type="text" id="contact" placeholder="email/instagram/phone???/etc." />
@@ -397,7 +413,7 @@
   <script>
     const promptUrl = "https://script.google.com/macros/s/AKfycbxXthuk0Ju9yubH-NmmNuR6MlEilXGcTk-aFMPrlA7X604y83GeYJzNoeDkIwLyPrtO/exec";
     let currentPage = 1;
-    const totalPages = 7;
+    const totalPages = 8;
 
     // fetch prompt list and show a random one
     fetch(promptUrl)
@@ -455,7 +471,11 @@
           alert("Please write your sentence before continuing.");
           return;
         }
-        if (currentPage === 5 && !document.getElementById("prompt-for-next").value.trim()) {
+        if (currentPage === 5 && !document.getElementById("photo-date").value.trim()) {
+          alert("Please enter when the photo was taken.");
+          return;
+        }
+        if (currentPage === 6 && !document.getElementById("prompt-for-next").value.trim()) {
           alert("Please write a prompt for the next person.");
           return;
         }
@@ -480,9 +500,15 @@
         showPage(currentPage);
         return;
       }
+      if (!document.getElementById("photo-date").value.trim()) {
+        alert("Please enter when the photo was taken.");
+        currentPage = 5;
+        showPage(currentPage);
+        return;
+      }
       if (!document.getElementById("prompt-for-next").value.trim()) {
         alert("Please write a prompt for the next person.");
-        currentPage = 5;
+        currentPage = 6;
         showPage(currentPage);
         return;
       }
@@ -490,6 +516,8 @@
       const data = {
         sentence: document.getElementById("sentence").value,
         photo: uploadedImageUrl || "", 
+        photo_description: document.getElementById("photo-description").value,
+        photo_date: document.getElementById("photo-date").value,
         prompt_received: window.selectedPrompt || "",
         prompt_for_next: document.getElementById("prompt-for-next").value,
         name: document.getElementById("name").value,
