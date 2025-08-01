@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>half & half memory zine</title>
+  <script>
+    UPLOADCARE_PUBLIC_KEY = "28fb8434de919df13e8f";
+  </script>
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap');
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 400;
+      padding: 1rem;
+      background-color: #FEFDFA;
+      color: #261E03;
+      line-height: 1.5;
+      margin: 0;
+    }
+    
+    h1 {
+      color: #261E03;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+    
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+    }
+    
+    input, textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      font-size: 0.875rem;
+      font-family: 'Roboto Mono', monospace;
+      box-sizing: border-box;
+      border: 1px solid #C3BBAB;
+      border-radius: 4px;
+      background-color: #FEFDFA;
+      color: #261E03;
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    input[type="file"] {
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #261E03;
+      font-size: 0.875rem;
+    }
+    
+    em {
+      display: block;
+      font-style: normal;
+      font-size: 0.8125rem;
+      color: #C3BBAB;
+      margin: 0.5rem 0 1rem 0;
+      line-height: 1.4;
+      font-weight: 300;
+    }
+    
+    button {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 500;
+      cursor: pointer;
+      background-color: #C3BBAB;
+      color: #FEFDFA;
+      border: none;
+      border-radius: 4px;
+      margin-right: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+    }
+    
+    .progress {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #C3BBAB;
+      font-size: 0.875rem;
+    }
+    
+    .navigation {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    
+    .image-placeholder {
+      border: 2px dashed #C3BBAB;
+      padding: 0;
+      text-align: center;
+      margin: 2rem 0;
+      color: #C3BBAB;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .image-placeholder img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 1.375rem;
+        margin-bottom: 1.25rem;
+      }
+      
+      h2 {
+        font-size: 1.125rem;
+        margin-bottom: 0.875rem;
+      }
+      
+      p {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+      
+      input, textarea, button, label {
+        font-size: 0.875rem;
+      }
+      
+      textarea {
+        min-height: 80px;
+      }
+      
+      button {
+        padding: 0.75rem 1.125rem;
+        margin-right: 0.5rem;
+        font-size: 0.875rem;
+      }
+      
+      .navigation {
+        margin-top: 1.75rem;
+      }
+      
+      .progress {
+        font-size: 0.875rem;
+        margin-bottom: 1.25rem;
+      }
+      
+      .image-placeholder {
+        margin: 1.5rem 0;
+      }
+      
+      em {
+        font-size: 0.8125rem;
+        margin: 0.375rem 0 0.875rem 0;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 0.375rem;
+      }
+      
+      .container {
+        padding: 0.875rem;
+      }
+      
+      h1 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      
+      h2 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      p {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-bottom: 0.875rem;
+      }
+      
+      input, textarea, label {
+        font-size: 0.8125rem;
+      }
+      
+      textarea {
+        min-height: 70px;
+        padding: 0.625rem;
+      }
+      
+      button {
+        font-size: 0.8125rem;
+        padding: 0.625rem 1rem;
+        margin-right: 0.375rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .navigation {
+        margin-top: 1.5rem;
+      }
+      
+      .navigation button {
+        margin: 0.25rem 0.125rem;
+      }
+      
+      .progress {
+        font-size: 0.8125rem;
+        margin-bottom: 1rem;
+      }
+      
+      .image-placeholder {
+        margin: 1.25rem 0;
+      }
+      
+      label {
+        margin-bottom: 0.375rem;
+      }
+      
+      em {
+        font-size: 0.75rem;
+        margin: 0.25rem 0 0.75rem 0;
+        line-height: 1.3;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>half & half</h2>
+    <div class="progress">
+      <span id="page-counter">1 / 7</span>
+    </div>
+
+    <!-- Page 1: Welcome -->
+    <div class="page active" id="page-1">
+      <h1>welcome to my half & half project!</h1>
+      <p>we are here to make a zine—half me & half you, about the first half of the 2020s, and the first half of most of our 20s.</p>
+      <p>not for profit. not for class. not for a job.<br>
+        merely — but more importantly — for the life that exists beyond all of those.
+        this is about the life we lived, loved, lost — and an unserious attempt to resist forgetting</p>
+      
+      <div class="image-placeholder">
+        <img src="image 1.jpg" alt="image 1" />
+      </div>
+      
+      <div class="navigation">
+        <button onclick="nextPage()">next</button>
+      </div>
+    </div>
+
+    <!-- Page 2: How This Works -->
+    <div class="page" id="page-2">
+      <h1>how this works</h1>
+      <p>i want you to send me a photo and (roughly) one sentence.</p>
+      
+      <p><strong>for the words //</strong> write whatever you want to write. be creative. be random. write about the most mundane things like "i bought a box of cookies this morning." or quote woolf. it is not a caption for the picture. it could be, but not necessarily (i might break them up anyway)</p>
+      
+      <p><strong>for the photo //</strong> give me one according to the prompt. you'll get stuff like "a sunset you saw" or "a food pic you shared with your mom," within the timeframe of 2020–2025. after you upload your photo, you'll draft a prompt for someone else. again, be creative, be curious. what part of someone's life are you wondering about? what encapsulates life in this 20s?</p>
+      
+      <p>i'll put everything together into a zine. depending on how many responses i get, maybe not everything will be included. but everyone who participates will get a digital version for sure. print version depends on my $$$ situation. (or yours. you might need to cover print cost. i'll reach out about this after it's done!)</p>
+      
+      <p>feel free to stay anonymous. but if you want the end result, please leave a way for me to reach you.</p>
+      
+      <p>again, be as weird as you want. write anything. upload anything. but be true, and stay true.</p>
+      
+      <p>with love,<br>ashley</p>
+    
+      
+      <div class="navigation">
+        <button onclick="prevPage()">back</button>
+        <button onclick="nextPage()">next</button>
+      </div>
+    </div>
+
+    <!-- Page 3: Your Words -->
+    <div class="page" id="page-3">
+      <h1>your words</h1>
+      <p>write one sentence (ish) for your 2020–2025</p>
+      <em>note: this is YOUR zine too. write in the language you like/want/can/have to/etc.</em>
+      <textarea id="sentence" placeholder="your sentence..." required></textarea>
+      <div class="navigation">
+        <button onclick="prevPage()">back</button>
+        <button onclick="nextPage()">next</button>
+      </div>
+    </div>
+
+    <!-- Page 4: Your Pic -->
+    <div class="page" id="page-4">
+      <h1>your pic</h1>
+      <p>someone wants to see this pic from you: <span id="prompt-received">loading…</span></p>
+      
+      <!-- 圖片上傳 -->
+      <label>Upload a photo:</label>
+      <input
+        type="hidden"
+        role="uploadcare-uploader"
+        name="photo"
+        data-images-only
+        data-clearable
+      />
+      <p style="font-size: 0.75rem; color: #C3BBAB; margin-top: 0.5rem; line-height: 1.4;">
+        <em>note: HEIC files cannot be previewed but I will still receive them, so feel free to upload!</em>
+      </p>
+      <img id="preview" class="preview" style="display:none; max-width: 100%; margin-top: 1rem;" />
+      
+      <div class="navigation">
+        <button onclick="prevPage()">back</button>
+        <button onclick="nextPage()">next</button>
+      </div>
+    </div>
+
+    <!-- Page 5: Your Prompt for the Next Person -->
+    <div class="page" id="page-5">
+      <h1>your photo prompt for the next person</h1>
+      <p>write a photo prompt for someone else!</p>
+      <input type="text" id="prompt-for-next" placeholder="your prompt for the next person" required />
+      <em>note: pls write this part in english 🥹 cos i clearly don’t have the front-end skills to automate both versions..!
+      </em>
+      <div class="navigation">
+        <button onclick="prevPage()">back</button>
+        <button onclick="nextPage()">next</button>
+      </div>
+    </div>
+
+    <!-- Page 6: Your Name -->
+    <div class="page" id="page-6">
+      <h1>your name</h1>
+      <p>feel free to stay anonymous</p>
+      <input type="text" id="name" placeholder="but put your name if you know i love you" />
+      <div class="navigation">
+        <button onclick="prevPage()">back</button>
+        <button onclick="nextPage()">next</button>
+      </div>
+    </div>
+
+    <!-- Page 7: Your Contact Info -->
+    <div class="page" id="page-7">
+      <h1>your contact info</h1>
+      <p>leave one if wanna be reached for the final zine!</p>
+      <input type="text" id="contact" placeholder="email/instagram/phone???/etc." />
+      <p id="status"></p>
+      <div class="navigation">
+        <button onclick="prevPage()">back</button>
+        <button onclick="submitForm()">submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const promptUrl = "https://script.google.com/macros/s/AKfycbxXthuk0Ju9yubH-NmmNuR6MlEilXGcTk-aFMPrlA7X604y83GeYJzNoeDkIwLyPrtO/exec";
+    let currentPage = 1;
+    const totalPages = 7;
+
+    // fetch prompt list and show a random one
+    fetch(promptUrl)
+      .then(res => res.json())
+      .then(prompts => {
+        const selected = prompts[Math.floor(Math.random() * prompts.length)];
+        document.getElementById("prompt-received").innerText = selected;
+        window.selectedPrompt = selected;
+      })
+      .catch(() => {
+        document.getElementById("prompt-received").innerText = "(failed to load prompt)";
+      });
+
+    let uploadedImageUrl = "";
+
+    // Uploadcare widget setup
+    const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+    
+    widget.onUploadComplete(info => {
+      uploadedImageUrl = info.cdnUrl;
+      document.getElementById("status").innerText = "Image uploaded!";
+      const preview = document.getElementById("preview");
+      preview.src = uploadedImageUrl;
+      preview.style.display = "block";
+    });
+
+    widget.onChange(info => {
+      if (info) {
+        document.getElementById("status").innerText = "Uploading image...";
+      } else {
+        // Image was removed
+        uploadedImageUrl = "";
+        document.getElementById("preview").style.display = "none";
+        document.getElementById("status").innerText = "";
+      }
+    });
+
+    function showPage(pageNum) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      // Show current page
+      document.getElementById(`page-${pageNum}`).classList.add('active');
+      
+      // Update counter
+      document.getElementById('page-counter').innerText = `${pageNum} / ${totalPages}`;
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages) {
+        // Validate required fields before moving to next page
+        if (currentPage === 3 && !document.getElementById("sentence").value.trim()) {
+          alert("Please write your sentence before continuing.");
+          return;
+        }
+        if (currentPage === 5 && !document.getElementById("prompt-for-next").value.trim()) {
+          alert("Please write a prompt for the next person.");
+          return;
+        }
+        
+        currentPage++;
+        showPage(currentPage);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    }
+
+    function submitForm() {
+      // Final validation
+      if (!document.getElementById("sentence").value.trim()) {
+        alert("Please write your sentence.");
+        currentPage = 3;
+        showPage(currentPage);
+        return;
+      }
+      if (!document.getElementById("prompt-for-next").value.trim()) {
+        alert("Please write a prompt for the next person.");
+        currentPage = 5;
+        showPage(currentPage);
+        return;
+      }
+
+      const data = {
+        sentence: document.getElementById("sentence").value,
+        photo: uploadedImageUrl || "", 
+        prompt_received: window.selectedPrompt || "",
+        prompt_for_next: document.getElementById("prompt-for-next").value,
+        name: document.getElementById("name").value,
+        contact: document.getElementById("contact").value
+      };
+
+      // 顯示提交中狀態
+      document.getElementById("status").innerText = "⏳ submitting...";
+      
+      // 發送 JSON 數據
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      };
+
+      // 添加超時處理
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timeout')), 15000)
+      );
+
+      Promise.race([
+        fetch(promptUrl, requestOptions),
+        timeoutPromise
+      ])
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+        })
+        .then(responseText => {
+          document.getElementById("status").innerText = "✅ submitted! thank you!";
+        })
+                .catch(err => {
+          // 如果是 CORS 錯誤，嘗試 no-cors 模式作為後備
+          if (err.message.includes('CORS') || err.name === 'TypeError') {
+            return fetch(promptUrl, {
+              method: "POST",
+              mode: 'no-cors',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data)
+            }).then(() => {
+              // no-cors 模式無法確認成功，但如果沒有拋出錯誤就假設成功
+              document.getElementById("status").innerText = "✅ submitted! thank you!";
+            });
+          }
+          
+          // 提供更詳細的錯誤信息
+          if (err.message === 'Request timeout') {
+            document.getElementById("status").innerText = "❌ 請求超時，請檢查網路連接後重試";
+          } else if (err.message.includes('HTTP')) {
+            document.getElementById("status").innerText = `❌ 服務器錯誤: ${err.message}`;
+          } else {
+            document.getElementById("status").innerText = "❌ 提交失敗: " + err.message;
+          }
+          
+          // 提供重試選項
+          setTimeout(() => {
+            if (confirm("提交失敗，是否重試？")) {
+              submitForm();
+            }
+          }, 2000);
+        });
+    }
+  </script>
+</body>
+</html>
